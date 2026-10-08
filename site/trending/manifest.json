@@ -1,0 +1,36 @@
+{
+  "id": "sh.thirdshift.specula.trending",
+  "name": "Trending",
+  "version": "1.0.0",
+  "description": "A Home row of what is trending, filled by the metadata providers you have set up in Specula. This add-on serves nothing: it describes a row, and Specula draws it.",
+  "types": ["movie", "series"],
+  "resources": [],
+  "catalogs": [],
+  "specula": {
+    "homeRows": [{
+      "id": "trending",
+      "title": "Trending",
+      "query": {
+        "kind": "trending", "media": "all", "window": "week", "count": 20,
+        "options": { "media": "media", "window": "window", "providers": "providers" }
+      }
+    }],
+    "options": { "fields": [
+      { "key": "providers", "title": "Metadata providers",
+        "footnote": "Which of the providers you have set up fill this row, in your order. None chosen means every one that can.",
+        "kind": { "metadataProviders": { "row": "trending" } } },
+      { "key": "media", "title": "Show",
+        "kind": { "choice": { "options": [
+          { "value": "all", "label": "Films and series" },
+          { "value": "movie", "label": "Films" },
+          { "value": "series", "label": "Series" } ] } },
+        "defaultValue": "all" },
+      { "key": "window", "title": "Trending over",
+        "footnote": "Some providers answer only one of these; the list above shows who can.",
+        "kind": { "choice": { "options": [
+          { "value": "week", "label": "This week" },
+          { "value": "day", "label": "Today" } ] } },
+        "defaultValue": "week" }
+    ] }
+  }
+}
