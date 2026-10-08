@@ -1,6 +1,24 @@
+import json
 import unittest
+from pathlib import Path
 
 from addon_manifest import schema
+
+REPOSITORY = Path(__file__).resolve().parent.parent
+SITE = REPOSITORY / "site"
+TRENDING = SITE / "trending" / "manifest.json"
+
+
+def trending():
+    return json.loads(TRENDING.read_text(encoding="utf-8"))
+
+
+class PublishedSite(unittest.TestCase):
+    def test_trending_is_first_party_and_declares_no_content(self):
+        manifest = trending()
+        self.assertEqual("sh.thirdshift.specula.trending", manifest["id"])
+        self.assertEqual([], manifest["resources"])
+        self.assertEqual([], manifest["catalogs"])
 
 
 class SchemaChecker(unittest.TestCase):
